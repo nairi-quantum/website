@@ -29,7 +29,21 @@ logo_uri = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 HTML = r"""<title>Nairi Quantum</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The first direct quantum-communication laboratory in Armenia and the region.">
+<meta name="description" content="Nairi Quantum is the first direct quantum-communication (QSDC) laboratory in Armenia and the region, based at Engineering City in Yerevan.">
+<link rel="canonical" href="https://nairiquantum.org/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nairi Quantum">
+<meta property="og:title" content="Nairi Quantum">
+<meta property="og:description" content="The first direct quantum-communication laboratory in Armenia and the region.">
+<meta property="og:url" content="https://nairiquantum.org/">
+<meta property="og:image" content="https://nairiquantum.org/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nairi Quantum">
+<meta name="twitter:description" content="The first direct quantum-communication laboratory in Armenia and the region.">
+<meta name="twitter:image" content="https://nairiquantum.org/og-image.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Nairi Quantum","url":"https://nairiquantum.org","description":"The first direct quantum-communication (QSDC) laboratory in Armenia and the region.","email":"info@nairiquantum.org","foundingLocation":"Yerevan, Armenia","location":{"@type":"Place","name":"Engineering City, Yerevan, Armenia"},"founder":{"@type":"Person","name":"Michel Kulhandjian"}}
+</script>
 <style>
   :root{
     --bg:#F8F9FC; --surface:#FFFFFF; --line:#E3E8F3; --ink:#14213F; --muted:#5A6588;
@@ -283,3 +297,20 @@ HTML = HTML.replace("%%LOGO%%", logo_uri)
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(HTML)
 print("Saved index.html  (logo embedded:", round(len(logo_uri)/1024), "KB base64 )")
+
+# --- Open Graph preview image (1200x630, transparent logo composited on light) ---
+og = Image.new("RGBA", (1200, 630), (248, 249, 252, 255))
+lg = im.copy(); lg.thumbnail((820, 540))
+og.alpha_composite(lg, ((1200 - lg.width)//2, (630 - lg.height)//2))
+og.convert("RGB").save("og-image.png", optimize=True)
+
+# --- sitemap.xml + robots.txt for search engines ---
+with open("sitemap.xml", "w", encoding="utf-8") as f:
+    f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            '  <url><loc>https://nairiquantum.org/</loc>'
+            '<changefreq>monthly</changefreq><priority>1.0</priority></url>\n'
+            '</urlset>\n')
+with open("robots.txt", "w", encoding="utf-8") as f:
+    f.write("User-agent: *\nAllow: /\nSitemap: https://nairiquantum.org/sitemap.xml\n")
+print("Saved og-image.png, sitemap.xml, robots.txt")

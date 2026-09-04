@@ -1,12 +1,26 @@
 # -*- coding: utf-8 -*-
 """Build the Nairi Quantum website (index.html) with the real logo embedded + orbiting animation."""
 import base64, io
+import numpy as np
 from PIL import Image
 
 LOGO_SRC = r"C:\Users\MichelKulhandjian\OneDrive - Digital Global Systems\Desktop\Michel\Quantum\Nairi_Quantum_logo_03.png"
 
-# --- embed an optimized copy of the logo as a data URI ---
+# --- make the light background transparent so the logo blends + orbits show through ---
 im = Image.open(LOGO_SRC).convert("RGBA")
+arr = np.array(im).astype(int)
+rgb = arr[..., :3]
+mx = rgb.max(axis=2); mn = rgb.min(axis=2)
+sat = mx - mn; light = mx
+newa = np.full(light.shape, 255, dtype=int)
+graybg = sat <= 16                                   # only near-gray/white pixels
+newa[graybg & (light >= 240)] = 0                    # white bg -> transparent
+feather = graybg & (light >= 222) & (light < 240)    # soft edge
+newa[feather] = ((240 - light[feather]) / 18.0 * 255).astype(int)
+arr[..., 3] = np.minimum(arr[..., 3], newa)          # keep all colored content
+im = Image.fromarray(arr.astype("uint8"), "RGBA")
+
+# --- embed an optimized copy of the (now transparent) logo as a data URI ---
 w, h = im.size
 tw = 760
 im2 = im.resize((tw, int(h * tw / w)))
@@ -230,12 +244,13 @@ HTML = r"""<title>Nairi Quantum</title>
   const c=document.getElementById('orb'), ctx=c.getContext('2d');
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const orbits=[
-    {rx:.46,ry:.17,rot:-0.38,sp:0.34,ph:0.0,col:'32,80,208'},   // blue
-    {rx:.34,ry:.31,rot:0.62,sp:-0.30,ph:2.1,col:'240,128,16'},  // orange
-    {rx:.50,ry:.24,rot:0.16,sp:0.26,ph:4.2,col:'208,16,16'},    // red
+    {rx:.60,ry:.22,rot:-0.35,sp:0.30,ph:0.0,col:'32,80,208'},   // blue
+    {rx:.44,ry:.40,rot:0.62,sp:-0.26,ph:2.0,col:'240,128,16'},  // orange
+    {rx:.64,ry:.30,rot:0.14,sp:0.24,ph:4.1,col:'208,16,16'},    // red
+    {rx:.52,ry:.52,rot:0.90,sp:-0.20,ph:1.0,col:'32,80,208'},   // blue (wide ring)
   ];
   let W,H,dpr,cx,cy,base;
-  function size(){dpr=Math.min(devicePixelRatio||1,2);W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;cx=W*0.5;cy=H*0.46;base=Math.min(W,H)*0.92;}
+  function size(){dpr=Math.min(devicePixelRatio||1,2);W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;cx=W*0.5;cy=H*0.44;base=Math.min(W,H)*1.02;}
   function draw(t){
     ctx.clearRect(0,0,W,H);
     for(const o of orbits){

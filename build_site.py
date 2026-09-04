@@ -27,9 +27,15 @@ im2 = im.resize((tw, int(h * tw / w)))
 buf = io.BytesIO(); im2.save(buf, format="PNG", optimize=True)
 logo_uri = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
-HTML = r"""<title>Nairi Quantum</title>
+HTML = r"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nairi Quantum</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="HR7Am4fMtFPOKqYASihoXZtpSK4-fA4dHkqUlbJczZM" />
+<link rel="icon" type="image/png" sizes="256x256" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
 <meta name="description" content="Nairi Quantum is the first direct quantum-communication (QSDC) laboratory in Armenia and the region, based at Engineering City in Yerevan.">
 <link rel="canonical" href="https://nairiquantum.org/">
 <meta property="og:type" content="website">
@@ -137,6 +143,8 @@ HTML = r"""<title>Nairi Quantum</title>
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
+</head>
+<body>
 
 <nav><div class="wrap nav-in">
   <a class="brand" href="#top">NAIRI <b>QUANTUM</b></a>
@@ -292,6 +300,8 @@ HTML = r"""<title>Nairi Quantum</title>
     document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);}else{loop();}});
   }
 </script>
+</body>
+</html>
 """
 
 HTML = HTML.replace("%%LOGO%%", logo_uri)
@@ -304,6 +314,20 @@ og = Image.new("RGBA", (1200, 630), (248, 249, 252, 255))
 lg = im.copy(); lg.thumbnail((820, 540))
 og.alpha_composite(lg, ((1200 - lg.width)//2, (630 - lg.height)//2))
 og.convert("RGB").save("og-image.png", optimize=True)
+
+# --- favicon: crop the emblem (N + sphere + orbits, above the wordmark) into a square icon ---
+W0, H0 = im.size
+box = (int(0.22*W0), int(0.09*H0), int(0.78*W0), int(0.63*H0))   # emblem region (excludes text/mountains)
+region = im.crop(box)
+bb = region.getbbox()                             # tighten to actual content
+if bb:
+    region = region.crop(bb)
+side = max(region.width, region.height)
+pad = int(side * 0.10)
+canvas = side + 2*pad
+fav = Image.new("RGBA", (canvas, canvas), (0, 0, 0, 0))
+fav.alpha_composite(region, ((canvas - region.width)//2, (canvas - region.height)//2))
+fav.resize((256, 256)).save("favicon.png", optimize=True)
 
 # --- sitemap.xml + robots.txt for search engines ---
 with open("sitemap.xml", "w", encoding="utf-8") as f:

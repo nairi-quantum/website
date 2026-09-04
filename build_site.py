@@ -29,6 +29,7 @@ logo_uri = "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 HTML = r"""<title>Nairi Quantum</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-site-verification" content="HR7Am4fMtFPOKqYASihoXZtpSK4-fA4dHkqUlbJczZM" />
 <meta name="description" content="Nairi Quantum is the first direct quantum-communication (QSDC) laboratory in Armenia and the region, based at Engineering City in Yerevan.">
 <link rel="canonical" href="https://nairiquantum.org/">
 <meta property="og:type" content="website">

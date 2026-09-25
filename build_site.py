@@ -4,7 +4,7 @@ import base64, io
 import numpy as np
 from PIL import Image
 
-LOGO_SRC = r"C:\Users\MichelKulhandjian\OneDrive - Digital Global Systems\Desktop\Michel\Quantum\Nairi_Quantum_logo_03.png"
+LOGO_SRC = r"C:\Users\MichelKulhandjian\OneDrive - Digital Global Systems\Desktop\Michel\Quantum\Nairi_Quantum_logo_11.png"
 
 # --- make the light background transparent so the logo blends + orbits show through ---
 im = Image.open(LOGO_SRC).convert("RGBA")
@@ -149,7 +149,7 @@ HTML = r"""<!doctype html>
 <nav><div class="wrap nav-in">
   <a class="brand" href="#top">NAIRI <b>QUANTUM</b></a>
   <div class="nav-links">
-    <a href="#mission">Mission</a><a href="#roadmap">Roadmap</a><a href="#support">Support</a>
+    <a href="#mission">Mission</a><a href="#research">Research</a><a href="#roadmap">Roadmap</a><a href="#resources">Resources</a><a href="#support">Support</a>
     <a class="btn" href="#contact">Get in touch</a>
   </div>
 </div></nav>
@@ -173,13 +173,34 @@ HTML = r"""<!doctype html>
   <h2 class="reveal">Securing tomorrow's communication — and keeping Armenian talent home.</h2>
   <p class="lead reveal">Quantum computers will one day break today's encryption, and adversaries already
   harvest encrypted data to decrypt later. Quantum Secure Direct Communication (QSDC) answers this by
-  sending the message itself through a quantum channel, protected by the laws of physics. Nairi Quantum
-  is the first laboratory in Armenia and the region to pursue it — founded by Dr.&nbsp;Michel Kulhandjian
-  and giving a dozen young Armenian scientists a reason to build advanced careers in Yerevan rather than abroad.</p>
+  sending the message itself through a quantum channel, protected by the laws of physics rather than the
+  difficulty of a calculation.</p>
+  <p class="lead reveal" style="margin-top:16px">Nairi Quantum is the first laboratory in Armenia and the
+  region to pursue QSDC. Founded by Dr.&nbsp;Michel Kulhandjian (Rice University), we bring together a team
+  of young Armenian scientists and start from the classical communications and coding expertise where they
+  are strongest &mdash; advancing, stage by stage, toward true photonic quantum links.</p>
+  <p class="lead reveal" style="margin-top:16px">Our mission is twofold: to help secure the communication of
+  the future, and to give a new generation of Armenian scientists a reason to build advanced careers at
+  home rather than abroad.</p>
   <div class="grid cols-3">
     <div class="card reveal"><span class="ic">&#128272;</span><h3>Beyond key distribution</h3><p>QSDC transmits the message directly over the quantum channel — no key to steal, no ciphertext to harvest.</p></div>
     <div class="card reveal"><span class="ic">&#128225;</span><h3>From SDR to photons</h3><p>We start in software-defined radio, where our team is strongest, and advance toward true photonic quantum links.</p></div>
     <div class="card reveal"><span class="ic">&#127462;&#127474;</span><h3>Talent, kept home</h3><p>A dozen young Armenians, trained at the frontier of quantum technology — the reverse of brain drain.</p></div>
+  </div>
+</div></section>
+
+<section class="block" id="research"><div class="wrap">
+  <p class="kicker reveal">Research</p>
+  <h2 class="reveal">What we work on.</h2>
+  <p class="lead reveal">Our work spans the path from classical communications to physical quantum links. A
+  few of the directions the team is actively pursuing:</p>
+  <div class="grid cols-3">
+    <div class="card reveal"><span class="ic">&#128273;</span><h3>Quantum Secure Direct Communication</h3><p>Sending the confidential message itself over a quantum channel — no key to distribute, security from the laws of physics.</p></div>
+    <div class="card reveal"><span class="ic">&#128246;</span><h3>Classical-channel realism for QSDC</h3><p>How real, imperfect coordination channels — loss, delay, jitter, corruption — affect QSDC reliability, latency, and security.</p></div>
+    <div class="card reveal"><span class="ic">&#128225;</span><h3>Physical-layer security on SDR</h3><p>Quantum-<em>inspired</em> emulation on GNU&nbsp;Radio / USRP software-defined radios (classical hardware): waveform masking and eavesdropping detection.</p></div>
+    <div class="card reveal"><span class="ic">&#129518;</span><h3>Quantum &amp; classical coding</h3><p>Error correction and channel coding — quantum error correction, qudit and stabilizer codes, and modern decoders — with our collaborators.</p></div>
+    <div class="card reveal"><span class="ic">&#127756;</span><h3>Channels: loss, fading &amp; capacity</h3><p>Link budgets, fading, Shannon and secrecy capacity, and the loss limits that bound quantum communication.</p></div>
+    <div class="card reveal"><span class="ic">&#128300;</span><h3>Toward a photonic testbed</h3><p>Continuous- versus discrete-variable receivers, and the roadmap to a single-photon quantum link.</p></div>
   </div>
 </div></section>
 
@@ -197,7 +218,7 @@ HTML = r"""<!doctype html>
 
 <section class="block"><div class="wrap"><div class="stats">
   <div class="stat reveal"><div class="num">12</div><div class="lbl">young researchers</div></div>
-  <div class="stat reveal"><div class="num">3</div><div class="lbl">research tracks</div></div>
+  <div class="stat reveal"><div class="num">6</div><div class="lbl">research directions</div></div>
   <div class="stat reveal"><div class="num"><span class="g">1</span>st</div><div class="lbl">QSDC lab in the region</div></div>
   <div class="stat reveal"><div class="num">&#8734;</div><div class="lbl">ambition for Armenia</div></div>
 </div></div></section>
@@ -208,6 +229,22 @@ HTML = r"""<!doctype html>
   training our own scientists, on our own soil, to secure the communication of the future.</p>
   <cite>Dr. Michel Kulhandjian &middot; Founder</cite>
 </blockquote></div></section>
+
+<section class="block" id="collaborators"><div class="wrap">
+  <p class="kicker reveal">Collaborators</p>
+  <h2 class="reveal">We build with world-class partners.</h2>
+  <p class="lead reveal">Our research is carried out in collaboration with leading scientists in
+  communications and coding theory.</p>
+  <div class="partners reveal">
+    <a class="partner plink" href="https://www.southampton.ac.uk/people/5wxxn8/professor-lajos-hanzo" target="_blank" rel="noopener"><b>Prof. Lajos Hanzo</b> &middot; University of Southampton &rarr;</a>
+    <a class="partner plink" href="https://www.netsciwis.com/" target="_blank" rel="noopener"><b>Prof. Walid Saad</b> &middot; Virginia Tech &rarr;</a>
+    <span class="partner"><b>Rice University</b> &middot; Houston, TX, USA</span>
+  </div>
+  <blockquote class="reveal" style="max-width:780px;margin:38px auto 0;text-align:center">
+    <p class="q" style="font-size:clamp(20px,2.8vw,30px);line-height:1.3;font-weight:700;letter-spacing:-.01em;color:var(--navy);margin:0">&#8220;Coding is the king of quantum.&#8221;</p>
+    <cite style="display:block;margin-top:16px;font-style:normal;font-size:15px;color:var(--muted);letter-spacing:.04em">Prof. Lajos Hanzo &middot; the foundation our classical-communications and coding work is built on</cite>
+  </blockquote>
+</div></section>
 
 <section class="block" id="support"><div class="wrap">
   <p class="kicker reveal">Become a patron</p>
@@ -234,6 +271,17 @@ HTML = r"""<!doctype html>
   </div>
 </div></section>
 
+<section class="block" id="resources"><div class="wrap">
+  <p class="kicker reveal">Resources</p>
+  <h2 class="reveal">Learn the science with us.</h2>
+  <p class="lead reveal">We write accessible material as we build. Our illustrated primer explains what
+  quantum communication really is &mdash; from the qubit to continuous-variable receivers &mdash; for
+  scientists and curious newcomers alike.</p>
+  <div class="partners reveal">
+    <a class="partner plink" href="Nairi_Quantum_Communication_Primer.pdf" target="_blank" rel="noopener"><b>What We Mean by Quantum Communication</b> &middot; an illustrated primer (PDF) &rarr;</a>
+  </div>
+</div></section>
+
 <section class="block"><div class="wrap">
   <p class="kicker reveal">Press</p>
   <h2 class="reveal">As featured in.</h2>
@@ -248,6 +296,8 @@ HTML = r"""<!doctype html>
   <h2 class="reveal">Support the lab, collaborate, or just say hello.</h2>
   <p class="lead reveal">Whether you'd like to sponsor a young scientist, explore a collaboration, or learn
   more about our work, we'd be glad to hear from you.</p>
+  <p class="lead reveal" style="margin-top:12px"><b>Students &amp; researchers</b> &mdash; interested in
+  quantum communication, software-defined radio, or coding theory? Get in touch &mdash; we'd love to hear from you.</p>
   <div class="contact-row reveal">
     <a class="btn" href="mailto:info@nairiquantum.org">info@nairiquantum.org</a>
     <span class="partner">Engineering City &middot; Yerevan, Armenia</span>
